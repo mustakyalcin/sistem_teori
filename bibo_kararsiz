@@ -1,0 +1,29 @@
+clc; clear; close all;
+
+% Zaman tanımı
+t1_values = linspace(1, 50, 200); % t1 artıyor
+y = zeros(size(t1_values));
+
+for k = 1:length(t1_values)
+    t1 = t1_values(k);
+    
+    tau = linspace(0, t1, 1000);
+    
+    % g(tau) = 1  (integrallenemez örnek)
+    g = ones(size(tau));
+    
+    % verilen özel giriş
+    u = sign(g);   % g>=0 -> 1
+    
+    % çıkış (konvolüsyon integralinin belirli hali)
+    y(k) = trapz(tau, g .* u);
+end
+
+% Grafik
+figure;
+plot(t1_values, y, 'LineWidth', 2);
+grid on;
+
+xlabel('t_1');
+ylabel('y(t_1)');
+title('BIBO Kararsızlık Gösterimi');
