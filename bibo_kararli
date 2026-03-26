@@ -1,0 +1,47 @@
+clc; clear; close all;
+
+% Zaman ekseni
+tau = linspace(0, 20, 1000);
+
+% g(tau) = e^{-tau}
+g = exp(-tau);
+
+figure;
+
+for t1 = 1:0.5:20
+    
+    % u(t1 - tau)
+    % g >= 0 olduğu için yine 1
+    u = ones(size(tau));
+    
+    % sadece 0 <= tau <= t1
+    mask = tau <= t1;
+    
+    % çarpım
+    product = g .* u .* mask;
+    
+    % integral
+    y = trapz(tau, product);
+    
+    % --- Grafik ---
+    clf;
+    
+    subplot(3,1,1);
+    plot(tau, g, 'LineWidth', 2);
+    title('g(\tau) = e^{-\tau}');
+    ylim([0 1.2]); grid on;
+    
+    subplot(3,1,2);
+    plot(tau, u .* mask, 'LineWidth', 2);
+    title(['u(t_1 - \tau), t_1 = ', num2str(t1)]);
+    ylim([0 1.2]); grid on;
+    
+    subplot(3,1,3);
+    plot(tau, product, 'LineWidth', 2); hold on;
+    area(tau, product, 'FaceAlpha', 0.3);
+    title(['Alan = y(t_1) = ', num2str(y,3)]);
+    ylim([0 1.2]); grid on;
+    
+    drawnow;
+    pause(0.2);
+end
