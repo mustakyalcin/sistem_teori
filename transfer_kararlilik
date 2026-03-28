@@ -1,5 +1,5 @@
 num = [1]; % aynı
-den = [1 -1]; % [1] 1/s
+den = [1 0]; % [1 -1] 1/s
 sys = tf(num, den);
 
 pole(sys)
