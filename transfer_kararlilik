@@ -1,0 +1,16 @@
+num = [1]; % aynı
+den = [1 -1]; % [1] 1/s
+sys = tf(num, den);
+
+pole(sys)
+
+% bounded input
+t = 0:0.01:10;
+u = ones(size(t));
+
+y = lsim(sys, u, t);
+
+figure;
+plot(t, y, 'LineWidth', 2);
+title('Unstable System Output');
+grid on;
